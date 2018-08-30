@@ -14,7 +14,9 @@ BUSYBOX_WARNING_HIDE := -Wno-error=implicit-function-declaration -Wno-implicit-f
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := android/regex/bb_regex.c
 LOCAL_C_INCLUDES := $(BB_PATH)/android/regex
-LOCAL_CFLAGS := -Wno-sign-compare
+LOCAL_CFLAGS = \
+    -Wno-error \
+    -Wno-sign-compare
 LOCAL_MODULE := libclearsilverregex
 include $(BUILD_STATIC_LIBRARY)
 
@@ -24,6 +26,7 @@ LOCAL_SRC_FILES := $(shell cat $(BB_PATH)/android/librpc.sources)
 LOCAL_C_INCLUDES := $(BB_PATH)/android/librpc
 LOCAL_MODULE := libuclibcrpc
 LOCAL_CFLAGS += -fno-strict-aliasing $(BUSYBOX_WARNING_HIDE)
+LOCAL_CFLAGS += -Wno-maybe-uninitialized
 LOCAL_CLANG := false
 ifeq ($(BIONIC_L),true)
 LOCAL_CFLAGS += -DBIONIC_ICS -DBIONIC_L
